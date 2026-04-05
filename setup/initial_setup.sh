@@ -1,5 +1,23 @@
 #!/bin/bash
 
+# Environment variables with flags
+NODE_EXPORTER="${NODE_EXPORTER:-0}"
+
+while getopts ":p:c:" opt; do
+  case $opt in
+    e) NODE_EXPORTER="1";;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+
 
 apt update
 apt upgrade -y
@@ -32,3 +50,9 @@ cp -r proxymanager /opt/
 # other programs
 
 apt install jq -y
+
+
+if [ "$NODE_EXPORTER" == "1" ]
+then
+    bash prometheus-nodeExporter.sh
+fi
