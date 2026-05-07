@@ -3,7 +3,7 @@
 # Environment variables with flags
 NODE_EXPORTER="${NODE_EXPORTER:-0}"
 
-while getopts ":p:c:" opt; do
+while getopts ":e:" opt; do
   case $opt in
     e) NODE_EXPORTER="1";;
     \?)
